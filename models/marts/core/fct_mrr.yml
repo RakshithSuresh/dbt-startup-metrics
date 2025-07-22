@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: fct_mrr
+    description: "Monthly recurring revenue per subscription"
+    columns:
+      - name: subscription_id
+        description: "Unique ID of the subscription"
+        tests:
+          - not_null
+
+      - name: customer_id
+        description: "ID of the customer"
+        tests:
+          - not_null
+
+      - name: month
+        description: "Revenue month"
+        tests:
+          - not_null
+
+      - name: monthly_revenue
+        description: "Revenue value"
+        tests:
+          - not_null
+
+      - name: mrr
+        description: "Same as monthly revenue"
+        tests:
+          - not_null

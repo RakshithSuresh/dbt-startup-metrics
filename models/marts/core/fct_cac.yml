@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: fct_cac
+    description: "Customer Acquisition Cost per month and channel"
+    columns:
+      - name: month
+        description: "Month of marketing spend and customer acquisition"
+        tests:
+          - not_null
+
+      - name: channel
+        description: "Marketing acquisition channel"
+        tests:
+          - not_null
+
+      - name: total_spend
+        description: "Total spend per month per channel"
+
+
+      - name: new_customers
+        description: "New customers acquired via that channel in that month"
+
+
+      - name: cac
+        description: "Customer Acquisition Cost (spend / new customers)"
+

@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: fct_ltv
+    description: "LTV metrics per customer"
+    columns:
+      - name: customer_id
+        description: "Customer identifier"
+        tests:
+          - not_null
+          - unique
+
+      - name: num_subscriptions
+        description: "How many subscriptions the customer had"
+        tests:
+          - not_null
+
+      - name: first_subscription
+        description: "Date of first subscription"
+        tests:
+          - not_null
+
+      - name: last_subscription
+        description: "Date of most recent subscription"
+        tests:
+          - not_null
+
+      - name: total_ltv
+        description: "Total revenue generated from the customer"
+        tests:
+          - not_null
+
+      - name: is_active
+        description: "Whether the customer is currently active (1) or not (0)"

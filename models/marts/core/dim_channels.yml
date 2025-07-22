@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: dim_channels
+    description: "Marketing or acquisition channels from which users signed up"
+    columns:
+      - name: channel
+        description: "Normalized name of the acquisition channel"
+        tests:
+          - not_null
+          - unique
+      - name: user_count
+        description: "Number of users acquired via this channel"

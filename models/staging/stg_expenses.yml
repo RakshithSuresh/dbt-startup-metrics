@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: google_sheets
+    schema: google_sheets
+    tables:
+      - name: expenses
+
+models:
+  - name: stg_expenses
+    description: "Staging model for expenses data"
+    columns:
+      - name: expense_id
+        description: "Unique ID for each expense"
+        tests:
+          - not_null
+          - unique
+
+      - name: date
+        description: "Date of the expense"
+
+      - name: amount
+        description: "Expense amount"
+
+      - name: category
+        description: "Category of the expense"

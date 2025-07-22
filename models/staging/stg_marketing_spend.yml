@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: google_sheets
+    tables:
+      - name: marketing_spend
+      
+models:
+  - name: stg_marketing_spend
+    description: "Staging model for marketing spend data from Google Sheets"
+    columns:
+      - name: campaign_id
+        description: "Unique ID for the marketing campaign"
+        tests:
+          - not_null
+          - unique
+
+      - name: spend
+        description: "Amount spent on the campaign"
+
+      - name: spend_date
+        description: "Date of marketing spend"
+
+      - name: channel
+        description: "Marketing channel (e.g. Facebook, Twitter, etc.)"

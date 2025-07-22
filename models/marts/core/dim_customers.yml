@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension with user attributes"
+    columns:
+      - name: customer_id
+        description: "Unique identifier for each customer"
+        tests:
+          - unique
+          - not_null
+
+      - name: email
+        description: "Customer email address (lowercased)"
+        tests:
+          - not_null
+
+      - name: signup_date
+        description: "Date the customer first signed up"
+        tests:
+          - not_null
+
+      - name: first_name
+        description: "Customer's first name"
+
+      - name: last_name
+        description: "Customer's last name"
+
+      - name: country
+        description: "Customer's country"
+
+      - name: industry
+        description: "Customer's industry"
+
+      - name: acquisition_channel
+        description: "Channel through which the customer was acquired"

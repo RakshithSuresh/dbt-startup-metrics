@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: dim_plans
+    description: "Lookup table for all unique subscription plans with usage stats"
+    columns:
+      - name: plan
+        description: "Normalized name of the subscription plan"
+        tests:
+          - not_null
+          - unique
+      - name: plan_usage_count
+        description: "Total number of subscriptions using this plan"

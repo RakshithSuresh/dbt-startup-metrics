@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: google_sheets
+    tables:
+      - name: subscriptions
+
+models:
+  - name: stg_subscriptions
+    description: Staged subscription data with cleaned fields and derived status
+    columns:
+      - name: subscription_id
+        tests: [not_null, unique]
+      - name: customer_id
+        tests: [not_null]
+      - name: plan
+      - name: start_date
+      - name: end_date
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['active', 'cancelled']

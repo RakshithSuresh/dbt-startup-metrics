@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Staged and cleaned customer data from Google Sheets"
+    columns:
+      - name: customer_id
+        description: "Primary key for customers"
+        tests:
+          - unique
+          - not_null
+
+      - name: email
+        description: "Customer email address in lowercase"
+
+      - name: signup_date
+        description: "Date customer signed up"
+
+      - name: first_name
+        description: "First name from full name"
+
+      - name: last_name
+        description: "Last name from full name"
+
+      - name: country
+        description: "Country of the customer"
+
+      - name: industry_
+        description: "Industry of the customer"
+
+

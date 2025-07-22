@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dim_subscriptions
+    description: "Cleaned and enriched subscription records with standardized fields and derived metrics"
+    columns:
+      - name: subscription_id
+        description: "Unique identifier for the subscription"
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "Customer associated with this subscription"
+        tests:
+          - not_null
+      - name: plan
+        description: "Normalized name of the subscription plan"
+      - name: start_date
+        description: "Start date of the subscription"
+        tests:
+          - not_null
+      - name: end_date
+        description: "End date if the subscription was canceled"
+      - name: monthly_revenue
+        description: "Revenue from the subscription per month"
+      - name: status
+        description: "Current status of the subscription"
+      - name: subscription_duration_days
+        description: "Total duration of the subscription in days"
