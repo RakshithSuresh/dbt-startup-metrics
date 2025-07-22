@@ -1,0 +1,39 @@
+name: Run dbt
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  run-dbt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dbt
+        run: |
+          pip install dbt-bigquery
+
+      - name: Set up GCP credentials
+        run: echo "${{ secrets.GCP_CREDENTIALS_JSON }}" > /tmp/creds.json
+
+      - name: Set up profiles.yml
+        run: |
+          mkdir -p ~/.dbt
+          echo "${{ secrets.DBT_PROFILES_YML }}" > ~/.dbt/profiles.yml
+
+      - name: Run dbt
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/creds.json
+        run: |
+          dbt deps
+          dbt debug --target dev
+          dbt build --target dev
