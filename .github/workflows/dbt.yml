@@ -1,45 +1,12 @@
-# name: Run dbt
-
-# on:
-#   push:
-#     branches: [main]
-#   pull_request:
-#     branches: [main]
-#   schedule:
-#     - cron: '0 5 * * *'  # Runs at 5 AM UTC every day
-
-# jobs:
-#   run-dbt:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - uses: actions/checkout@v3
-
-#       - name: Set up Python
-#         uses: actions/setup-python@v4
-#         with:
-#           python-version: '3.10'
-
-#       - name: Install dependencies
-#         run: |
-#           python -m venv venv
-#           source venv/bin/activate
-#           pip install dbt-bigquery
-
-#       - name: Run dbt
-#         run: |
-#           source venv/bin/activate
-#           dbt deps
-#           dbt build
-#         env:
-#           DBT_PROFILES_DIR: .dbt  # or specify where your profiles.yml lives
-
 name: Run dbt
 
 on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 5 * * *'  # optional: every day at 5AM UTC
 
 jobs:
   run-dbt:
@@ -58,11 +25,21 @@ jobs:
         run: |
           pip install dbt-bigquery
 
+      - name: Set up profiles.yml
+        run: |
+          mkdir -p ~/.dbt
+          echo "${{ secrets.DBT_PROFILES_YML }}" > ~/.dbt/profiles.yml
+
+      - name: Set up GCP credentials
+        run: |
+          echo "${{ secrets.GCP_CREDENTIALS_JSON }}" > /tmp/creds.json
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/creds.json
+
       - name: Run dbt
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/creds.json
         run: |
-          echo "${{ secrets.GCP_CREDENTIALS_JSON }}" > /tmp/creds.json
           dbt deps
           dbt debug --target dev
           dbt build --target dev
