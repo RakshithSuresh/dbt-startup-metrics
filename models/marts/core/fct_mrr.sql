@@ -1,7 +1,7 @@
 
 
 {{ config(
-    materialized = 'table',
+    materialized = 'view',
     unique_key = ['subscription_id', 'month']
 ) }}
 

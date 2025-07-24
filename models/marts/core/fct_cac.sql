@@ -1,5 +1,5 @@
 
-{{ config(materialized='table') }}
+{{ config(materialized='view') }}
 
 with marketing_spend_by_month as (
   select

@@ -1,4 +1,4 @@
-{{ config(materialized = 'table') }}
+{{ config(materialized = 'view') }}
 
 select distinct
   lower(acquisition_channel) as channel,

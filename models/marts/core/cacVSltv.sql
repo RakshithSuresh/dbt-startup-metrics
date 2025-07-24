@@ -1,4 +1,4 @@
-{{ config(materialized = 'table') }}
+{{ config(materialized = 'view') }}
 
 -- Aggregate LTV monthly
 with ltv_monthly as (
