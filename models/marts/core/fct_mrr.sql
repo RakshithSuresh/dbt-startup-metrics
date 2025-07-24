@@ -1,9 +1,11 @@
--- Track monthly recurring revenue per customer subscription. This will be used for LTV, churn, and other KPIs.
+
 
 {{ config(
-    materialized = 'incremental',
+    materialized = 'table',
     unique_key = ['subscription_id', 'month']
 ) }}
+
+
 
 with subscriptions as (
     select
@@ -20,8 +22,12 @@ month_grain as (
         s.subscription_id,
         s.customer_id,
         s.monthly_revenue,
-        date_trunc(month_date, month) as month
-    from subscriptions s,
+        date_trunc(month_date, month) as month,
+        c.acquisition_channel,
+        c.country
+    from subscriptions s
+    left join {{ ref('dim_customers') }} c
+      on s.customer_id = c.customer_id,
     unnest(generate_date_array(s.start_date, s.end_date, interval 1 month)) as month_date
 )
 
@@ -30,5 +36,7 @@ select
     customer_id,
     month,
     monthly_revenue,
-    monthly_revenue as mrr
+    monthly_revenue as mrr,
+    acquisition_channel,
+    country
 from month_grain

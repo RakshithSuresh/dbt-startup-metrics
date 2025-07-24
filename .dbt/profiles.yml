@@ -1,5 +1,5 @@
 startup_metrics:
-  target: dev
+  target: prod
   outputs:
     dev:
       type: bigquery
@@ -8,4 +8,14 @@ startup_metrics:
       dataset: startup_finance
       threads: 4
       timeout_seconds: 300
-      keyfile: /tmp/creds.json
+      keyfile: "/Users/rakshiths/startup-dashboard/creds.json"
+
+    prod:
+      type: bigquery
+      method: service-account
+      project: startup-metrics-dashboard
+      dataset: startup_finance
+      threads: 4
+      timeout_seconds: 300
+      keyfile: "/Users/rakshiths/startup-dashboard/creds.json"
+
